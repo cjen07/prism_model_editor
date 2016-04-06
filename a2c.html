@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Prism Model Editor</title>
+  <link rel="stylesheet" href="./app.css">
+  <link rel="stylesheet" href="./bootstrap.min.css">
+</head>
+<body>
+  <div id="page-container">
+    <h1>Prism Model Editor</h1>
+    <section id="app">
+        <div id="app-body">
+          <div class="panel tab-content">
+            <div id="edit-pane" class="tab-pane active">
+              <div class="layer1">
+                <div id="time"></div>
+                <div id="alphabet"></div>
+                <div id="automata"></div>
+              </div>
+              <div class="layer2">
+                <div id="locations"></div>
+                <br>
+              </div>
+              <div class="layer3">
+                <div id="edges"></div>
+                <br>
+              </div>
+              <div class="form">
+                <br>
+                <div id="form"></div>
+              </div>
+            </div>
+          </div>
+          <div class="graph"></div>
+        </div>
+      </section>
+  </div>
+  <script src="./d3.min.js"></script>
+  <script src="./data.js"></script>
+  <script src="./data_api.js"></script>
+  <script src="./graph.js"></script>
+  <script src="./dom.js"></script>
+  <script src="./app.js"></script>
+</body>
+
