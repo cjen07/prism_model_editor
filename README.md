@@ -1,5 +1,5 @@
 # prism_model_editor
-a web GUI to editor Prism models
+a web GUI to edit Prism models
 
 ## dependency
 d3.js
