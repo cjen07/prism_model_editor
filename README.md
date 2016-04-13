@@ -13,7 +13,6 @@ bootstrap.css
 
 ## to do list
 
-- zoom/pan
 - mouse events
 
 ## report bug
