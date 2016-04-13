@@ -532,7 +532,8 @@ function drawAutomata(data, automatonName) {
 
 function drawAutomata1() {
   if(svgMode){
-    svg.remove();
+    // call dom.js
+    clear("svg", "graph");
   }
   setSvgMode();
   drawAutomata2();
@@ -562,8 +563,20 @@ function drawAutomata2() {
     .start();
 
   svg = d3.select("#app-body .graph").append("svg")
+               .attr("id", "svg")
                .attr("width", width)
-               .attr("height", height);
+               .attr("height", height)
+               .append("g")
+               .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
+
+  function zoom() {
+  svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+  svg.append("rect")
+    .attr("class", "overlay")
+    .attr("width", width)
+    .attr("height", height);
 
 
   // Per-type markers, as they don't inherit styles.
@@ -618,7 +631,8 @@ function drawAutomata2() {
         else
           return 3;
       })
-      .call(force.drag);
+      .call(force.drag)
+      .on("mousedown", function() { d3.event.stopPropagation(); });
 
   text = svg.append("g").selectAll("text")
       .data(nodes, function(d) { return d.name; })
