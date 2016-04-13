@@ -3,6 +3,7 @@ a web GUI to edit Prism models
 
 ## dependency
 d3.js
+bootstrap.css
 
 ## usage
 
@@ -12,7 +13,7 @@ d3.js
 
 ## to do list
 
-- same name check
+- zoom/pan
 - mouse events
 
 ## report bug
