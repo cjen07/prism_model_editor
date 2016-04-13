@@ -110,7 +110,16 @@ function showAutomata(){
     function f3(){
       console.log("hi");
       function f4(automatonNewName){
+
         // same name check
+        var pos = automataList.indexOf(automatonNewName);
+
+        if (pos != -1){
+          console.log("wrong format");
+          return;
+        }
+
+        
         var re = /^\w+$/;
         if (re.test(automatonNewName)){
           updateAutomataName(data, automatonName, automatonNewName);
@@ -139,7 +148,15 @@ function showAutomata(){
     function h2(){
 
       function f4(automatonAddName){
-        // assume no same name
+
+        // same name check
+        var pos = automataList.indexOf(automatonAddName);
+
+        if (pos != -1){
+          console.log("wrong format");
+          return;
+        }
+
         var re = /^\w+$/;
         if (re.test(automatonAddName)){
           var automaton = new Object();
@@ -185,7 +202,15 @@ function showLocations(){
 
     function f3(){
       function f4(locationNewName){
-        // assume no same name
+        // same name check
+
+        var pos = locationlist.indexOf(locationNewName);
+
+        if (pos != -1){
+          console.log("wrong format");
+          return;
+        }
+
         var re = /^\w+$/;
         if (re.test(locationNewName)){
           console.log("renameLocation");
@@ -219,7 +244,15 @@ function showLocations(){
     function h2(){
 
       function f4(locationAddName){
-        // assume no same name
+        // same name check
+
+        var pos = locationlist.indexOf(locationAddName);
+
+        if (pos != -1){
+          console.log("wrong format");
+          return;
+        }
+
         var re = /^\w+$/;
         if (re.test(locationAddName)){
           var location = new Object();
@@ -245,6 +278,13 @@ function showLocations(){
 
 function showEdges(){
   gen_text("Edges: ", "edgesLiteral", "edges");
+
+  var locationlist = [];
+  try{
+    locationlist = getLocations(data, automatonName).map(function(e) { return e.name; });
+  }
+  catch(e){}
+
   var edgelist = getEdges(data, automatonName).actions.map(function(e) { return e.target; });
 
 
@@ -264,7 +304,15 @@ function showEdges(){
     function f3(){
       function f4(edgeNewName){
         // assume it is in the alphabet
-        // assume no same name
+        // same name check
+
+        var pos = edgelist.indexOf(edgeName.split(".")[0] + "." + edgeNewName);
+
+        if (pos != -1){
+          console.log("wrong format");
+          return;
+        }
+
         var re = /^\w+$/;
         if (re.test(edgeNewName)){
           console.log("renameEdge");
@@ -277,7 +325,7 @@ function showEdges(){
           console.log("wrong format");
         }
       }
-      gen_form(locationName, "edgeNameForm", "form", f4);
+      gen_form(edgeName.split(".")[1], "edgeNameForm", "form", f4);
     }
     gen_button("Rename", "renameEdge", "edges", f3);
 
@@ -296,6 +344,40 @@ function showEdges(){
       function f4(destinationInput){
 
         var destinationList = destinationInput.split(",");
+        // check destinationList format
+        var index = destinationList.length;
+
+        if (index % 2 != 0){
+          console.log("wrong format");
+          return;
+        }
+
+        var array = [];
+        while (index > 0){
+          
+          var s = destinationList[index-2];
+          var pos = array.indexOf(s);
+          if (pos != -1){
+            console.log("wrong format");
+            return;
+          }
+
+          var pos = locationlist.indexOf(s);
+          if (pos == -1){
+            console.log("wrong format");
+            return;
+          }
+
+          array.push(s);
+
+          var p = destinationList[index-1];
+
+          if( isNaN(parseFloat(p)) || p < 0 || p > 1){
+            console.log("wrong format");
+            return;
+          }
+          index -= 2;
+        }
 
         editEdge(data, automatonName, edgeName, destinationList);
         editEdgeNode(edgeName, destinationList);
@@ -315,7 +397,14 @@ function showEdges(){
 
       function f4(edgeAddName){
         // assume it is in the alphabet
-        // assume no same name
+        // same name check
+
+        var pos = edgelist.indexOf(edgeAddName);
+
+        if (pos != -1){
+          console.log("wrong format");
+          return;
+        }
 
         console.log("addEdge");
         addEdge(data, automatonName, edgeAddName);
